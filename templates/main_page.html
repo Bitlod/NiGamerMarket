@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Gaming Products Store</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/style1.css">
-</head>
-<body>
-<header>
-    <h1>Gaming Products Store</h1>
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-</header>
-<main>
+{% extends "empty.html" %}
+
+{% block content %}
+    <head>
+        <title>Gaming Products Store</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/main_page.css">
+    </head>
     <div id="top_products">
         <h1>Top products</h1>
     </div>
@@ -42,7 +31,4 @@
             <button>Add to Cart</button>
         </div>
     </div>
-</main>
-{% block content %}{% endblock %}
-</body>
-</html>
+{% endblock %}

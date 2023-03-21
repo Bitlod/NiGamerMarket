@@ -1,15 +1,15 @@
-{% extends "main.html" %}
+{% extends "empty.html" %}
 
 {% block content %}
     <head>
         <title>Gaming Products Store</title>
-        <link rel="stylesheet" type="text/css" href="../static/css/style2.css">
+        <link rel="stylesheet" type="text/css" href="../static/css/products.css">
     </head>
     <div class="sort">
-    <!-- допустим сортировать будем через бд -->
-    <!-- проверяем что выбрано ниже из 2х или более пунктов и на основе выбора делаем запрос через sqlalchemy и  -->
-    <!-- затем в extends создаем таблицу html, где через цикл и словарь в app.py и sqlalchemy вставляем данные -->
-    <!-- https://stackoverflow.com/questions/57675191/how-do-i-display-postgresql-database-table-data-on-a-web-browser-using-sqlalchem -->
+        <!-- допустим сортировать будем через бд -->
+        <!-- проверяем что выбрано ниже из 2х или более пунктов и на основе выбора делаем запрос через sqlalchemy и  -->
+        <!-- затем в extends создаем таблицу html, где через цикл и словарь в app.py и sqlalchemy вставляем данные -->
+        <!-- https://stackoverflow.com/questions/57675191/how-do-i-display-postgresql-database-table-data-on-a-web-browser-using-sqlalchem -->
         <label for="sortby">Sort by:</label>
         <select id="sortby">
             <option value="price">Price</option>

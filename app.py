@@ -15,16 +15,22 @@ from data import db_session
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['FLASK_DEBUG'] = 1
 
 
 @app.route('/')
 def hello_world():  # put application's code here
-    return render_template('main.html')
+    return render_template('main_page.html')
 
 
-@app.route('/test')
+@app.route('/products')
 def test():  # put application's code here
-    return render_template('test1.html')
+    return render_template('products.html')
+
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
 
 
 if __name__ == '__main__':
