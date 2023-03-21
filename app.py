@@ -19,12 +19,12 @@ app.config['FLASK_DEBUG'] = 1
 
 
 @app.route('/')
-def hello_world():  # put application's code here
+def main_page():  # put application's code here
     return render_template('main_page.html')
 
 
 @app.route('/products')
-def test():  # put application's code here
+def products():  # put application's code here
     return render_template('products.html')
 
 
