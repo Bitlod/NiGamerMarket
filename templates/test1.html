@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+
+{% block content %}
+    <head>
+        <title>Gaming Products Store</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/style2.css">
+    </head>
+    <div class="sort">
+    <!-- допустим сортировать будем через бд -->
+    <!-- проверяем что выбрано ниже из 2х или более пунктов и на основе выбора делаем запрос через sqlalchemy и  -->
+    <!-- затем в extends создаем таблицу html, где через цикл и словарь в app.py и sqlalchemy вставляем данные -->
+    <!-- https://stackoverflow.com/questions/57675191/how-do-i-display-postgresql-database-table-data-on-a-web-browser-using-sqlalchem -->
+        <label for="sortby">Sort by:</label>
+        <select id="sortby">
+            <option value="price">Price</option>
+            <option value="name">Name</option>
+        </select>
+    </div>
+    <div class="products">
+        <div class="product">
+            <img src="product1.jpg" alt="Product 1">
+            <h2>Product 1</h2>
+            <p>$10</p>
+        </div>
+        <div class="product">
+            <img src="product2.jpg" alt="Product 2">
+            <h2>Product 2</h2>
+            <p>$15</p>
+        </div>
+        <div class="product">
+            <img src="product3.jpg" alt="Product 3">
+            <h2>Product 3</h2>
+            <p>$20</p>
+        </div>
+        <div class="product">
+            <img src="product4.jpg" alt="Product 4">
+            <h2>Product 4</h2>
+            <p>$25</p>
+        </div>
+        <div class="product">
+            <img src="product5.jpg" alt="Product 5">
+            <h2>Product 5</h2>
+            <p>$40</p>
+        </div>
+        <div class="product">
+            <img src="product6.jpg" alt="Product 6">
+            <h2>Product 6</h2>
+            <p>$35</p>
+        </div>
+    </div>
+{% endblock %}
