@@ -1,0 +1,25 @@
+User = data.users.User
+    db_sess = db_session.create_session()
+
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        # Проверяем, существует ли уже пользователь с таким именем пользователя или email
+        existing_user = db_sess.query(User).filter_by(username=username).first()
+
+        print(existing_user)
+        if existing_user:
+            flash('Пользователь с таким именем пользователя или email уже существует',
+                  'danger')  # Выдача предупреждения
+            return redirect('/registration')  # Перенаправление на страницу регистрации
+        else:
+            # Создание нового пользователя и сохранение в базе данных
+            new_user = User()
+            new_user.username = username
+            new_user.password = password
+            db_sess.add(new_user)
+            db_sess.commit()
+            flash('Регистрация прошла успешно', 'success')  # Выдача сообщения об успешной регистрации
+            return redirect('/login')  # Перенаправление на страницу входа
+    return render_template('registration.html', form=form)

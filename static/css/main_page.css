@@ -13,16 +13,7 @@ header {
     padding: 20px;
 }
 
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
 
-nav li {
-    display: inline-block;
-    margin-right: 20px;
-}
 
 nav a {
     color: #fff;
@@ -36,48 +27,138 @@ main {
     justify-content: space-between;
 }
 
-#top_products {
-    background-color: #f1f1f1;
-    margin: auto 0;
-    padding: 0;
+
+
+/* Стили для таблицы */
+.table {
+    width: 100%; /* Ширина таблицы 100% */
+    table-layout: fixed; /* Фиксированная ширина столбцов */
+    border-collapse: collapse; /* Схлопывание границ ячеек таблицы */
+}
+
+/* Стили для ячеек таблицы */
+.table th,
+.table td {
+    padding: 10px; /* Внутренний отступ для ячеек таблицы */
+    text-align: left; /* Выравнивание содержимого ячеек по левому краю */
+    border: 1px solid #000; /* Границы ячеек таблицы */
+}
+
+/* Стили для заголовков столбцов таблицы */
+.table th {
+    background-color: #f2f2f2; /* Цвет фона заголовков столбцов */
+    font-weight: bold; /* Полужирное начертание текста в заголовках столбцов */
+}
+
+/* Стили для содержимого таблицы */
+.table td {
+    vertical-align: top; /* Выравнивание содержимого ячеек по верхнему краю */
+}
+
+
+/* Стили для кнопок */
+.button {
+    padding: 8px 16px;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
     text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
-.products1 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 100px;
-    margin: 0 auto;
+
+.select {
+    display: inline-block; /* Отображение элемента в виде блока */
+    position: relative; /* Относительное позиционирование элемента */
+    width: 200px; /* Ширина элемента select */
+    height: 40px; /* Высота элемента select */
+    background-color: #fff; /* Цвет фона элемента select */
+    border: 1px solid #000; /* Граница элемента select */
+    border-radius: 4px; /* Радиус скругления углов элемента select */
+    padding: 10px; /* Внутренний отступ внутри элемента select */
+    font-size: 16px; /* Размер шрифта внутри элемента select */
+    color: #000; /* Цвет текста внутри элемента select */
+    cursor: pointer; /* Изменение формы курсора при наведении на элемент select */
 }
 
-.product1 {
-    width: 100%;
-    background-color: #f1f1f1;
-    margin-bottom: 20px;
-    padding: 20px;
-
+/* Стили для опций элемента select */
+.select option {
+    padding: 10px; /* Внутренний отступ внутри опций элемента select */
+    font-size: 16px; /* Размер шрифта внутри опций элемента select */
+    color: #000; /* Цвет текста внутри опций элемента select */
+    background-color: #fff; /* Цвет фона опций элемента select */
 }
 
-.product img {
-    display: block;
-    margin: auto;
+/* Стили для выпадающего списка опций */
+.select select {
+    position: absolute; /* Абсолютное позиционирование списка опций */
+    top: 100%; /* Расположение списка опций под элементом select */
+    left: 0; /* Выравнивание списка опций по левому краю элемента select */
+    right: 0; /* Выравнивание списка опций по правому краю элемента select */
+    max-height: 200px; /* Максимальная высота списка опций */
+    overflow-y: auto; /* Включение вертикальной прокрутки, если список опций не вмещается на экране */
+    background-color: #fff; /* Цвет фона списка опций */
+    border: 1px solid #000; /* Граница списка опций */
+    border-radius: 4px; /* Радиус скругления углов списка опций */
+    padding: 0; /* Удаление внутреннего отступа списка опций */
+    margin: 0; /* Удаление внешних отступов списка опций */
+    list-style: none; /* Удаление маркера списка опций */
+    z-index: 999; /* Поднятие списка опций над другими элементами */
+    opacity: 0; /* Скрытие списка опций по умолчанию */
+    pointer-events: none; /* Отключение событий указателя */
 }
 
-.product h3 {
-    margin-top: 0;
-    text-align: center;
+.input-field {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
 }
 
-.product p {
-    margin: 10px 0;
+.input-field:focus {
+  border-color: #007bff; /* Цвет рамки при фокусе */
 }
 
-.product .price {
-    font-weight: bold;
-    font-size: 1.2em;
+.neon-text {
+  font-size: 36px; /* Размер текста */
+  color: #fff; /* Цвет текста */
+  text-shadow: 0 0 5px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00, 0 0 60px #00ff00; /* Основная тень текста */
+  animation: neon-animation 1s ease-in-out infinite alternate; /* Анимация светящейся тени */
 }
 
-.product .button {
-    display: block;
-    margin: 0;
+@keyframes neon-animation {
+  from {
+    text-shadow: 0 0 5px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00, 0 0 60px #00ff00; /* Начальная тень текста */
+  }
+  to {
+    text-shadow: 0 0 10px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00, 0 0 60px #00ff00, 0 0 70px #00ff00; /* Конечная тень текста */
+  }
+}
+
+
+.navbar-brand {
+  color: #007bff; /* Цвет ссылки на главную страницу */
+  font-weight: bold; /* Жирность текста ссылки на главную страницу */
+}
+
+.nav-link {
+  color: #333; /* Цвет ссылок в навигации */
+}
+
+.nav-link:hover {
+  color: #fff; /* Цвет ссылок в навигации при наведении */
+}
+
+.text-black-with-white-shadow {
+  color: #000; /* Черный цвет текста */
+  text-shadow: 0 0 5px #fff; /* Белая тень с радиусом 5 пикселей */
+}
+
+#center_nav_item{
+    padding-bottom: 2px;
+    padding-top: 2px;
 }

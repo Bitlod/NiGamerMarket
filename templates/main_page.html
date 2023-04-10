@@ -2,33 +2,21 @@
 
 {% block content %}
     <head>
-        <title>Gaming Products Store</title>
+        <title>Главная</title>
         <link rel="stylesheet" type="text/css" href="../static/css/main_page.css">
     </head>
-    <div id="top_products">
-        <h1>Top products</h1>
-    </div>
-    <div class="products1">
-        <div class="product1">
-            <img src="https://via.placeholder.com/150x150" alt="Product Image">
-            <h3>Product Name</h3>
-            <p class="description">Product description goes here.</p>
-            <p class="price">$49.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product1">
-            <img src="https://via.placeholder.com/150x150" alt="Product Image">
-            <h3>Product Name</h3>
-            <p class="description">Product description goes here.</p>
-            <p class="price">$29.99</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product1" id="123">
-            <img src="https://via.placeholder.com/150x150" alt="Product Image">
-            <h3>Product Name</h3>
-            <p class="description">Product description goes here.</p>
-            <p class="price">$19.99</p>
-            <button>Add to Cart</button>
-        </div>
-    </div>
+    <body>
+    <main>
+        <h1>Главная страница</h1>
+        <h2>Товары</h2>
+        <ul>
+            {% for product in products %}
+                {% if products %}
+                    <li>{{ product.name }} - {{ product.price }} руб.</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </main>
+    </body>
+
 {% endblock %}
