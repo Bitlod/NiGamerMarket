@@ -17,34 +17,53 @@
     </form>
     <br>
     <br>
+
     <table class="table">
         <tr>
             <th>Название</th>
             <th>Цена</th>
-            <th>Удаление</th>
+            <th>Удаление
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </th>
         </tr>
         {% for product in products %}
             <tr>
                 <td>{{ product.name }} <span class="sort-icon"></span></td>
                 <td>{{ product.price }} <span class="sort-icon"></span></td>
                 <td>
-                    <form method="post" action="/products">
-                        <input type="hidden" name="delete" value="{{ product.id }}">
-                        <button type="submit" class="button">Удалить <span class="sort-icon"></span></button>
-                    </form>
+                    {% if current_user.is_authenticated %}
+                        <form method="post" action="/products">
+                            <input type="hidden" name="delete" value="{{ product.id }}">
+                            <button type="submit" class="button">Удалить <span class="sort-icon"></span></button>
+                        </form>
+                    {% else %}
+                        Удаление доступно только после входа!
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
     </table>
-    <h2>Добавить продукт</h2>
-    <form method="post" action="/products">
-        <label for="name">Название продукта:</label>
-        <input type="text" id="name" name="name" required class="input-field" style="right: 20px"><br>
-        <label for="price">Цена продукта:</label>
-        <input type="number" id="price" name="price" required class="input-field" style="right: 20px"><br>
-        <input type="submit" value="Добавить" class="button">
-    </form>
-    <br>
 
+    {% if current_user.is_authenticated %}
+        <h2>Добавить продукт</h2>
+        <form method="post" action="/products">
+            <label for="name">Название продукта:</label>
+            <input type="text" id="name" name="name" required class="input-field" style="right: 20px"><br>
+
+            <label for="price">Цена продукта:</label>
+            <input type="number" id="price" name="price" required class="input-field" style="right: 20px"><br>
+
+            <input type="submit" value="Добавить" class="button">
+        </form>
+    {% endif %}
+    <br>
     </body>
 {% endblock %}

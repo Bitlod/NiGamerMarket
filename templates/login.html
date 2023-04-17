@@ -2,12 +2,12 @@
 
 {% block content %}
     <head>
-        <title>Регистрация</title>
+        <title>Логин</title>
     </head>
     <body>
-    <h1>Регистрация</h1>
+    <h1>Логин</h1>
 
-    <form method="POST" action="/registration">
+    <form method="POST" action="/login">
         {{ form.csrf_token }}
         <label for="{{ form.username.id }}">Имя пользователя:</label>
         {{ form.username }}
@@ -15,17 +15,17 @@
         <label for="{{ form.password.id }}">Пароль:</label>
         {{ form.password }}
         <br>
-        <label for="{{ form.confirm_password.id }}">Подтверждение пароля:</label>
-        {{ form.confirm_password }}
+        <label for="{{ form.remember_me.id }}">Запомнить:</label>
+        {{ form.remember_me }}
         <br>
-        {{ form.submit }}
+        {{ form.submit(type="submit") }}
     </form>
+
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <ul class="alert alert-danger">
+            <ul>
                 {% for message in messages %}
                     <li>{{ message }}</li>
-                    <a href="/login">Перейти ко входу</a>
                 {% endfor %}
             </ul>
         {% endif %}

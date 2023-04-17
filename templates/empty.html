@@ -14,13 +14,20 @@
                     <a class="nav-link text-black-with-white-shadow" href="/">Главная</a>
                 </li>
 
-                <li class="nav-item" id="center_nav_item">
-                    <a class="nav-link text-black-with-white-shadow" href="/login">Вход</a>
-                </li>
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item" id="center_nav_item">
+                        <a class="nav-link text-black-with-white-shadow" href="/logout">Выйти</a>
+                    </li>
 
-                <li class="nav-item" id="center_nav_item">
-                    <a class="nav-link text-black-with-white-shadow" href="/registration">Регистрация</a>
-                </li>
+                {% else %}
+                    <li class="nav-item" id="center_nav_item">
+                        <a class="nav-link text-black-with-white-shadow" href="/registration">Зарегистрироваться</a>
+                    </li>
+
+                    <li class="nav-item" id="center_nav_item">
+                        <a class="nav-link text-black-with-white-shadow" href="/login">Войти</a>
+                    </li>
+                {% endif %}
 
                 <li class="nav-item" id="center_nav_item">
                     <a class="nav-link text-black-with-white-shadow" href="/products">Товары</a>
