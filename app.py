@@ -6,6 +6,10 @@ from data import db_session, products, users
 from forms.registration import RegistrationForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from forms.login import LoginForm
+from flask_wtf.csrf import CSRFProtect
+
+# Создаем экземпляр CSRFProtect
+csrf = CSRFProtect()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -13,6 +17,7 @@ app.config['FLASK_DEBUG'] = 1
 # дебаг нужен для отлавливания и исправления ошибок в реальном времени 
 login_manager = LoginManager()
 login_manager.init_app(app)
+csrf.init_app(app)  # csrf токен для предотвращения поддельных запросов
 
 
 @app.route('/registration', methods=['GET', 'POST'])
