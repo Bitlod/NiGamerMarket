@@ -7,4 +7,4 @@ class RegistrationForm(FlaskForm):  # форма регистрации
     username = StringField('Имя пользователя', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     confirm_password = PasswordField('Подтвердите пароль', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Зарегистрироваться')
+    submit = SubmitField('Зарегистрироваться', render_kw={'class': 'button'})

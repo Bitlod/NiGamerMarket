@@ -22,12 +22,12 @@
     </form>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <ul class="alert alert-danger">
+            <div class="alert alert-danger">
                 {% for message in messages %}
-                    <li>{{ message }}</li>
+                    {{ message }}<br>
                     <a href="/login">Перейти ко входу</a>
                 {% endfor %}
-            </ul>
+            </div>
         {% endif %}
     {% endwith %}
     </body>

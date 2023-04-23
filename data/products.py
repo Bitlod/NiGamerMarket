@@ -10,6 +10,8 @@ class Product(SqlAlchemyBase, SerializerMixin):  # класс товаров
     user_id = Column(Integer, nullable=False)
     name = Column(String(100), nullable=False)
     price = Column(Integer, nullable=False)
+    description = Column(String)
+    image = Column(String)
 
     def delete(self, product_id):  # удаление товара 
         db_sess = db_session.create_session()

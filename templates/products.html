@@ -8,6 +8,7 @@
     <body>
     <h1>Товары</h1>
     <form action="{{ url_for('sort_products') }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <label for="sort_by" id="sort">Сортировать по:</label>
         <select id="sort_by" name="sort_by" class="select">
             <option class="option" value="name">Название</option>
@@ -22,25 +23,28 @@
         <tr>
             <th>Название</th>
             <th>Цена</th>
+            <th>Описание</th>
             <th>Удаление
                 {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <ul>
-                            {% for message in messages %}
-                                {{ message }}
-                            {% endfor %}
-                        </ul>
+                    {% if messages %}{% for message in messages %}
+                        <div class="class=alert alert-danger" style="max-width: fit-content">{{ message }}</div><br>
+                    {% endfor %}
                     {% endif %}
                 {% endwith %}
             </th>
+            <th>Фото</th>
         </tr>
         {% for product in products %}
             <tr>
-                <td>{{ product.name }} <span class="sort-icon"></span></td>
+                <td><a style="text-decoration: none; color: #311B92; text-shadow: #9FA8DA"
+                       href="{{ url_for('product_detail', product_id=product.id) }}">{{ product.name }}</a> <span
+                        class="sort-icon"></span></td>
                 <td>{{ product.price }} <span class="sort-icon"></span></td>
+                <td>{{ product.description }} <span class="sort-icon"></span></td>
                 <td>
                     {% if current_user.is_authenticated %}
                         <form method="post" action="/products">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="delete" value="{{ product.id }}">
                             <button type="submit" class="button">Удалить <span class="sort-icon"></span></button>
                         </form>
@@ -48,18 +52,35 @@
                         Удаление доступно только после входа!
                     {% endif %}
                 </td>
+                {% if product.image %}
+                    <td><img src="{{ url_for('static', filename='uploads/photos/' + product.image) }}"
+                             alt="product image" style="max-width: 100px; max-height: 100px;"></td>
+                {% else %}
+                    <td>No image</td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>
 
     {% if current_user.is_authenticated %}
         <h2>Добавить продукт</h2>
-        <form method="post" action="/products">
+        <form method="post" action="/products" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <label for="name">Название продукта:</label>
-            <input type="text" id="name" name="name" required class="input-field" style="right: 20px"><br>
+            <input type="text" id="name" name="name" required class="input-field"
+                   style="right: 20px; vertical-align: top"><br>
 
             <label for="price">Цена продукта:</label>
-            <input type="number" id="price" name="price" required class="input-field" style="right: 20px"><br>
+            <input type="number" id="price" name="price" required class="input-field"
+                   style="right: 20px; vertical-align: top"><br>
+
+            <label for="description">Описание продукта:</label>
+            <textarea id="description" name="description" rows="4" required class="input-field"
+                      style="vertical-align: top"></textarea><br>
+
+            <label for="image">Картинка продукта:</label>
+            <input type="file" id="image" name="image" class="input-field image-field"
+                   style="right: 20px; vertical-align: top"><br>
 
             <input type="submit" value="Добавить" class="button">
         </form>

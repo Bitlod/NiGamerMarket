@@ -7,6 +7,10 @@ from forms.registration import RegistrationForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from forms.login import LoginForm
 from flask_wtf.csrf import CSRFProtect
+from flask_uploads import UploadSet, IMAGES
+from werkzeug.utils import secure_filename
+from flask_dropzone import Dropzone
+import os
 
 # Создаем экземпляр CSRFProtect
 csrf = CSRFProtect()
@@ -19,6 +23,16 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 csrf.init_app(app)  # csrf токен для предотвращения поддельных запросов
 
+# создаем экземпляры расширений
+photos = UploadSet('photos', IMAGES)
+dropzone = Dropzone(app)
+
+# добавляем конфигурацию для загрузки файлов
+app.config['UPLOAD_FOLDER'] = 'static/uploads/photos'
+app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image'
+app.config['DROPZONE_MAX_FILES'] = 1
+app.config['DROPZONE_UPLOAD_MULTIPLE'] = False
+
 
 @app.route('/registration', methods=['GET', 'POST'])
 def register():
@@ -27,7 +41,9 @@ def register():
     db_sess = db_session.create_session()
     if form.validate_on_submit():  # если форма регистрации на подтверждение, то...
         if form.password.data != form.confirm_password.data:
-            flash('Пароли не совпадают', 'danger')  # Выдача предупреждения на следующую страницу, в html файле есть обработчик для flash поедупреждений (далее также)
+            flash('Пароли не совпадают',
+                  'danger')  # Выдача предупреждения на следующую страницу, в html файле есть обработчик для flash
+            # предупреждений (далее также)
             return redirect('/registration')  # Перенаправление на страницу регистрации
         if db_sess.query(User).filter(User.username == form.username.data).first():
             flash('Пользователь с таким именем пользователя уже существует', 'danger')  # Выдача предупреждения
@@ -50,7 +66,7 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-@app.route('/logout')  #выход
+@app.route('/logout')  # выход
 @login_required
 def logout():
     logout_user()
@@ -77,12 +93,25 @@ def main_page():
     Product = data.products.Product
     db_sess = db_session.create_session()
     products = db_sess.query(Product).limit(3).all()  # выбор 3 продуктов для отображения на главной странице 
-
+    d = {'src1': url_for('static', filename='img/mars2.jpg'),
+         'src2': url_for('static', filename='img/mars1.jpg'),
+         'src3': url_for('static', filename='img/mars3.jpg')}
     # Проверка на наличие товаров
     if products:
-        return render_template('main_page.html', products=products)
+        return render_template('main_page.html', products=products, enumerate=enumerate, **d)
     else:
-        return render_template('main_page.html', products=[])
+        return render_template('main_page.html', products=[], enumerate=enumerate, **d)
+
+
+# добавляем обработчик для загрузки файлов
+@app.route('/upload', methods=['POST'])
+def upload():
+    file = request.files.get('file')
+    if file:
+        filename = photos.save(file)
+        return filename
+    else:
+        return 'error'
 
 
 @app.route('/products', methods=['GET', 'POST'])  # страница товаров
@@ -110,11 +139,20 @@ def index():
             # Получаем данные из формы
             name = request.form['name']
             price = int(request.form['price'])
+            description = request.form['description']
             # Создаем новый объект Product
             new_product = Product()
             new_product.name = name  # добавляем в бд название товара
             new_product.price = price  # цену
-            print(current_user)  # отладка, можно убрать 
+            new_product.description = description  # описание
+
+            image = request.files['image']
+            if image:
+                # сохранение файла изображения в папке "uploads"
+                filename = secure_filename(image.filename)
+                image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                new_product.image = filename
+
             new_product.user_id = current_user.id  # добавление в бд ид текущего пользователя 
             # Добавляем объект в сессию
             db_sess.add(new_product)
@@ -129,9 +167,20 @@ def index():
         return render_template('products.html', products=products)
 
 
+@app.route("/products/<int:product_id>")
+def product_detail(product_id):
+    # Получаем информацию о товаре из базы данных
+    db_sess = db_session.create_session()
+    Product = data.products.Product
+    product = db_sess.query(Product).get(product_id)
+
+    # Отображаем шаблон с информацией о товаре
+    return render_template("product_detail.html", product=product)
+
+
 @app.route('/products/sort', methods=['POST'])  # сортировка на странице товаров
 def sort_products():
-    global products  # нужно для передачи на страницу с продуктами (ну или же можно удалить)
+    products = None  # нужно для передачи на страницу с продуктами (ну или же можно удалить)
     sort_by = request.form['sort_by']
     db_sess = db_session.create_session()
     Product = data.products.Product
@@ -142,7 +191,9 @@ def sort_products():
     return render_template('products.html', products=products)
 
 
-@app.route('/delete_product/<int:product_id>', methods=['POST'])  # удаление товаров доступно для зарегистрированных пользователей, и удаление только того, что добавили они сами, поэтому конкретная функция для удаления
+@app.route('/delete_product/<int:product_id>', methods=['POST'])
+# удаление товаров доступно для зарегистрированных пользователей, и удаление только того, что добавили они сами,
+# поэтому конкретная функция для удаления
 @login_required  # нельзя удалить если не зареган 
 def delete_product(product_id):
     Product = data.products.Product
@@ -159,6 +210,15 @@ def delete_product(product_id):
     else:
         flash('Товар не найден', 'danger')
     return redirect(url_for('products'))
+
+
+@app.route('/products/buy')
+def buy():
+    return render_template('buy.html')
+
+
+# не буду делать отдельную страницу покупки, ибо для нормальной кассы надо апи, ключи и тд и тп, а мне лень. передавать
+# можно так же как и на пред. страницу
 
 
 @app.errorhandler(404)  # обработчик 404

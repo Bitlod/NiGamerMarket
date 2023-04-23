@@ -6,17 +6,65 @@
         <link rel="stylesheet" type="text/css" href="../static/css/main_page.css">
     </head>
     <body>
-    <main>
-        <h1>Главная страница</h1>
-        <h2>Товары</h2>
-        <ul>
+    <div class="carousel-container">
+        <div class="carousel slide"></div>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="/products"><img src="{{ url_for('static', filename='img/pubg.jpg') }}"
+                                             class="d-block w-100"
+                                             alt="..."></a>
+                </div>
+
+
+                <div class="carousel-item">
+                    <a href="/products"><img src="{{ url_for('static', filename='img/csgo.jpg') }}"
+                                             class="d-block w-100"
+                                             alt="..."></a>
+                </div>
+
+                <div class="carousel-item">
+                    <a href="/products"><img src="{{ url_for('static', filename='img/apex.jpg') }}"
+                                             class="d-block w-100"
+                                             alt="..."></a>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Предыдущий</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Следующий</span>
+            </button>
+        </div>
+    </div>
+    <div id="top-products">
+        <h2 class="ul-item-heading">Товары</h2>
+        <ul class="list-group mx-auto">
             {% for product in products %}
                 {% if products %}
-                    <li>{{ product.name }} - {{ product.price }} руб.</li>
+                    <div class="li-item-all">
+                        <li class="list-group-item rounded bg-primary text-white"><a
+                                class="ul-item-name">{{ product.name }}</a> <span
+                                class="badge badge-light float-right li-item-name">{{ product.price }} руб.</span>
+                        </li>
+                    </div>
                 {% endif %}
             {% endfor %}
         </ul>
-    </main>
+    </div>
     </body>
 
 {% endblock %}
