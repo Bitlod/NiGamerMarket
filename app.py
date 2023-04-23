@@ -1,5 +1,6 @@
 from flask import render_template, redirect, request, flash, url_for
 from flask import Flask
+from flask_ngrok import run_with_ngrok
 
 import data
 from data import db_session, products, users
@@ -105,7 +106,7 @@ def main_page():
 
 # добавляем обработчик для загрузки файлов
 @app.route('/upload', methods=['POST'])
-def upload():
+def upload_photo():
     file = request.files.get('file')
     if file:
         filename = photos.save(file)
@@ -115,7 +116,7 @@ def upload():
 
 
 @app.route('/products', methods=['GET', 'POST'])  # страница товаров
-def index():
+def products():
     db_sess = db_session.create_session()
     Product = data.products.Product
 
@@ -216,6 +217,10 @@ def delete_product(product_id):
 def buy():
     return render_template('buy.html')
 
+
+@app.route('/contacts')
+def contacts():
+    return render_template('contacts.html')
 
 # не буду делать отдельную страницу покупки, ибо для нормальной кассы надо апи, ключи и тд и тп, а мне лень. передавать
 # можно так же как и на пред. страницу
