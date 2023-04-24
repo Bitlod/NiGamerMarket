@@ -56,6 +56,7 @@ main {
 .table td {
     vertical-align: top; /* Выравнивание содержимого ячеек по верхнему краю */
     color: #311B92;
+    backdrop-filter: blur(1px);
 }
 
 /* Стили для кнопок */
@@ -132,9 +133,6 @@ main {
     font-size: 36px; /* Размер текста */
     text-shadow: 0 0 5px #9FA8DA, 0 0 20px #9FA8DA, 0 0 30px #9FA8DA, 0 0 40px #9FA8DA, 0 0 50px #9FA8DA, 0 0 60px #9FA8DA; /* Основная тень текста */
     animation: neon-animation 1s ease-in-out infinite alternate; /* Анимация светящейся тени */
-    position: fixed;
-    top: 45px;
-    left: 20px;
 }
 
 .neon-before {
@@ -143,7 +141,7 @@ main {
 }
 
 .neon-before:hover {
-    color: white;
+    color: #1a2030;
     text-decoration: none;
     text-shadow: 0 0 10px #311B92; /* Белая тень с радиусом 5 пикселей */
 }
@@ -356,7 +354,7 @@ main {
 
 .neon-no-fixed:hover {
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 .carousel {
@@ -404,4 +402,28 @@ input[type="file"] {
 
 .custom-file-upload:active {
     background-color: #ddd;
+}
+
+.main-text {
+    position: relative;
+    height: fit-content;
+    backdrop-filter: blur(1px);
+    box-shadow: 0 1px 5px #9FA8DA;
+    padding: 15px 7px 20px;
+    text-indent: 20px;
+}
+
+.main-text-divs {
+    text-indent: 20px;
+    padding-bottom: 20px;
+}
+
+#romanov {
+    text-decoration: none;
+    color: #1a2030;
+}
+
+#romanov:hover {
+    color: #f2f2f2; /*  цвет текста */
+    text-shadow: 0 0 10px #9FA8DA; /* Белая тень с радиусом 5 пикселей */
 }

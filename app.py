@@ -260,6 +260,45 @@ def add_to_cart(product_id, quantity=1):
     return redirect(url_for('product_detail', product_id=product_id))
 
 
+@app.route('/delete_item/<int:item_id>')
+def delete_item(item_id):
+    db_sess = db_session.create_session()
+    Product = data.products.Product
+    Cart = data.cart.Cart
+    item = db_sess.query(Cart).get(item_id)
+    if item.quantity > 1:
+        item.quantity -= 1
+        db_sess.commit()
+    else:
+        db_sess.delete(item)
+        db_sess.commit()
+    return redirect('/cart')
+
+
+@app.route('/delete_all_items/<int:product_id>')
+def delete_all_items(product_id):
+    db_sess = db_session.create_session()
+    Product = data.products.Product
+    Cart = data.cart.Cart
+    items = db_sess.query(Cart).filter_by(product_id=product_id, user_id=current_user.id).all()
+    for item in items:
+        db_sess.delete(item)
+        db_sess.commit()
+    return redirect('/cart')
+
+
+@app.route('/delete_all_user_items')
+def delete_all_user_items():
+    db_sess = db_session.create_session()
+    Product = data.products.Product
+    Cart = data.cart.Cart
+    items = db_sess.query(Cart).filter_by(user_id=current_user.id).all()
+    for item in items:
+        db_sess.delete(item)
+        db_sess.commit()
+    return redirect('/cart')
+
+
 @app.route("/buy")
 @login_required
 def buy():

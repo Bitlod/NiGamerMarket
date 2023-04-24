@@ -44,6 +44,14 @@
                                            style="float: right; padding-right: 20px; color: #000000;">{{ item.price * item.quantity }}
                                             руб.</p>
                                     </div>
+                                    <div>
+                                        <a href="{{ url_for('delete_item', item_id=item.id) }}" class="gray-text">
+                                            <button class="button">Удалить один</button>
+                                        </a>
+                                        <a href="{{ url_for('delete_all_items', product_id=item.product_id) }}" class="gray-text">
+                                            <button class="button" style="margin-left: 20px">Удалить все</button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -60,15 +68,20 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex buttons-cart" style="margin-left: 25.5%; min-width: 1000px">
                         <a href="/products" class="d-flex gray-text">
                             <button type="button" class="border-radius-10px" style="margin-right: 20px;">
                                 Продолжить покупки
                             </button>
                         </a>
                         <a href="/buy" class="d-flex gray-text">
-                            <button type="button" class="button border-radius-10px" style="margin-right: 150px">
+                            <button type="button" class="button border-radius-10px" style="margin-right: 20px">
                                 Заказать
+                            </button>
+                        </a>
+                        <a href="{{ url_for('delete_all_user_items') }}" class="d-flex gray-text">
+                            <button type="button" class="button border-radius-10px" style="margin-right: 300px">
+                                Удалить все товары из корзины
                             </button>
                         </a>
                     </div>
