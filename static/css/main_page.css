@@ -27,7 +27,6 @@ main {
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 20px;
-
 }
 
 /* Стили для таблицы */
@@ -63,12 +62,16 @@ main {
 .button {
     padding: 8px 16px;
     height: 40px;
-    background-color: #8D6E63;
+    background-color: #7986CB;
     color: #fff;
     text-align: center;
     text-decoration: none;
     border-radius: 4px;
     transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #311B92;;
 }
 
 .select {
@@ -193,6 +196,9 @@ main {
     width: 100%;
     height: 100%;
     position: static;
+
+    border-collapse: collapse;
+    border-radius: 20px;
 }
 
 .carousel-container {
@@ -201,6 +207,16 @@ main {
     top: 0;
     left: 0;
     width: 100%;
+}
+
+.border-radius-20px {
+    border-collapse: collapse;
+    border-radius: 20px;
+}
+
+.border-radius-10px {
+    border-collapse: collapse;
+    border-radius: 10px;
 }
 
 .navbar {
@@ -215,12 +231,12 @@ main {
 
 .list-group-item {
     background-color: #f4f0eb;
-    background-image: linear-gradient(#f4f0eb 50%, #e8e3d7 50%),
-    linear-gradient(90deg, #e8e3d7 50%, #f4f0eb 50%),
-    linear-gradient(45deg, #e8e3d7 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #e8e3d7 75%),
-    linear-gradient(45deg, #e8e3d7 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #e8e3d7 75%);
+    background-image: linear-gradient(#ECEFF1 50%, #EDE7F6 50%),
+    linear-gradient(90deg, #EDE7F6 50%, #ECEFF1 50%),
+    linear-gradient(45deg, #EDE7F6 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #EDE7F6 75%),
+    linear-gradient(45deg, #EDE7F6 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #EDE7F6 75%);
     background-size: 20px 20px, 20px 20px, 10px 10px, 10px 10px, 10px 10px, 10px 10px;
     background-position: -10px -10px, -10px -10px, 0 0, 0 10px, 10px -10px, 10px 0;
     padding-bottom: 10px;
@@ -236,13 +252,30 @@ main {
 }
 
 .ul-item-heading {
-    padding-top: 20px;
+    padding: 5px;
     font-size: 32px;
-    color: #9FA8DA;
     text-shadow: 0 0 5px #9FA8DA, 0 0 20px #9FA8DA, 0 0 30px #9FA8DA, 0 0 40px #9FA8DA, 0 0 50px #9FA8DA, 0 0 60px #9FA8DA; /* Основная тень текста */
     text-transform: uppercase;
+    position: relative;
     text-align: center;
-    margin-bottom: 30px;
+
+    color: #fff;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 42.5%;
+    width: 15%;
+    height: fit-content;
+    backdrop-filter: blur(1px);
+    box-shadow: 0 1px 5px #9FA8DA;
+    margin: 10px;
+}
+
+.no-product {
+    backdrop-filter: blur(1px);
+    box-shadow: 0 1px 5px #9FA8DA;
+    margin: 20px;
+    padding: 10px;
 }
 
 .card {
@@ -297,4 +330,78 @@ main {
 }
 
 .ds {
+}
+
+.pic-under-text {
+    position: relative;
+}
+
+.text-on-pic {
+    position: absolute;
+    top: 85%;
+    width: 8%;
+    left: 46%;
+    padding: 7px 20px;
+    text-align: center;
+    background: #00000094;
+    color: #f2f2f2;
+}
+
+.neon-no-fixed {
+    text-shadow: 0 0 5px #9FA8DA, 0 0 20px #9FA8DA, 0 0 30px #9FA8DA, 0 0 40px #9FA8DA, 0 0 50px #9FA8DA, 0 0 60px #9FA8DA; /* Основная тень текста */
+    animation: neon-animation 1s ease-in-out infinite alternate; /* Анимация светящейся тени */
+    text-decoration: none;
+    color: #9FA8DA;
+}
+
+.neon-no-fixed:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.carousel {
+
+}
+
+.cart {
+    backdrop-filter: blur(1px);
+    box-shadow: 0 1px 5px #9FA8DA;
+    padding: 15px;
+}
+
+.mb-5, .mb-4 {
+    max-width: 50%;
+    left: 25%;
+}
+
+.text-cart {
+    min-width: 100px;
+}
+
+.gray-text {
+    color: #444444; /* темно-серый цвет */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.gray-text:hover {
+    text-decoration: none;
+    color: #444444; /* темно-серый цвет */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+
+.custom-file-upload:active {
+    background-color: #ddd;
 }

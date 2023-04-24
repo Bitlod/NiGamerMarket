@@ -11,12 +11,16 @@
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../static/css/main_page.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/neon.css">
 
 </head>
 <body>
 <header>
-    <h1 class="neon-text" style="text-decoration: none; color: #9FA8DA"><a href="/" class="neon-before">NiGamer
-        Market</a></h1>
+    <div class="text-effect">
+        <h1 class="neon" data-text="NiGamerMarket">NiGamerMarket</h1>
+        <div class="gradient"></div>
+        <div class="spotlight"></div>
+    </div>
     <nav class="navbar">
         <div class="navbar-collapse" id="navbarNav">
             <div class="nav-item" id="top_nav_item">
@@ -41,6 +45,12 @@
             <div class="nav-item" id="center_nav_item">
                 <a class="d-block nav-link text-black-with-white-shadow" href="/products">Товары</a>
             </div>
+
+            {% if current_user.is_authenticated %}
+                <div class="nav-item" id="center_nav_item">
+                    <a class="d-block nav-link text-black-with-white-shadow" href="/cart">Корзина</a>
+                </div>
+            {% endif %}
 
             <div class="nav-item" id="bottom_nav_item">
                 <a class="d-block nav-link text-black-with-white-shadow" href="/contacts">Контакты</a>

@@ -6,5 +6,5 @@ from wtforms.validators import DataRequired, EqualTo
 class RegistrationForm(FlaskForm):  # форма регистрации 
     username = StringField('Имя пользователя', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
-    confirm_password = PasswordField('Подтвердите пароль', validators=[DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('Подтвердите пароль', validators=[DataRequired()])
     submit = SubmitField('Зарегистрироваться', render_kw={'class': 'button'})

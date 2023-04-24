@@ -1,0 +1,80 @@
+{% extends "empty.html" %}
+
+{% block content %}
+    <section class="cart border-radius-20px"
+             style="position: relative; color: #fff; backdrop-filter: blur(1px); box-shadow: 0 1px 5px #9FA8DA;">
+        <div class="container h-100">
+            <div>
+                <div class="col">
+                    <p>
+                        <span class="h2" style="color: #1a2030">Корзина </span><span
+                            class="h4"
+                            style="color: dimgray">({{ format_goods_count(items|length) }} в вашей корзине)</span>
+                    </p>
+
+
+
+                    {% for item in items %}
+                        <div class="card mb-4" style="max-width: 40%; left: 30%">
+                            <div class="card-body p-4">
+                                <div class="row align-items-center" style="padding-left: 20px">
+                                    <div>
+                                        <p class="small text-muted mb-4 pb-2" style="min-width: 100px; float: left">
+                                            Название</p>
+                                        <p class="lead fw-normal mb-0 gray-text"
+                                           style="float: right; padding-right: 20px; color: #000000;">{{ item.name }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="small text-muted mb-4 pb-2" style="min-width: 150px; float: left">
+                                            Количество</p>
+                                        <p class="lead fw-normal mb-0 gray-text"
+                                           style="float: right; padding-right: 20px; color: #000000;">{{ item.quantity }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="small text-muted mb-4 pb-2" style="min-width: 150px; float: left">
+                                            Цена</p>
+                                        <p class="lead fw-normal mb-0 gray-text"
+                                           style="float: right; padding-right: 20px; color: #000000;">{{ item.price }}
+                                            руб.</p>
+                                    </div>
+                                    <div>
+                                        <p class="small text-muted mb-4 pb-2" style="min-width: 150px; float: left">
+                                            Итого</p>
+                                        <p class="lead fw-normal mb-0 gray-text"
+                                           style="float: right; padding-right: 20px; color: #000000;">{{ item.price * item.quantity }}
+                                            руб.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="card mb-5" style="max-width: 50%; left: 25%">
+                        <div class="card-body p-4">
+                            <div class="float-end">
+                                <p class="mb-0 me-5 d-flex align-items-center">
+                                    <span class="small text-muted me-2">Общая цена покупки:</span> <span
+                                        class="lead fw-normal gray-text">{{ total }} руб.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <a href="/products" class="d-flex gray-text">
+                            <button type="button" class="border-radius-10px" style="margin-right: 20px;">
+                                Продолжить покупки
+                            </button>
+                        </a>
+                        <a href="/buy" class="d-flex gray-text">
+                            <button type="button" class="button border-radius-10px" style="margin-right: 150px">
+                                Заказать
+                            </button>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

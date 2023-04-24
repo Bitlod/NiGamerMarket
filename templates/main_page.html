@@ -19,30 +19,36 @@
                         aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active">
+                <div class="carousel-item active pic-under-text">
                     <a href="/products"><img src="{{ url_for('static', filename='img/pubg.jpg') }}"
-                                             class="d-block w-100"
+                                             class="d-block w-100 border-radius-20px"
                                              alt="..."></a>
+                    <div class="text-on-pic border-radius-10px"><a class="neon-no-fixed" href="/products/1" >Топ 1 товар</a></div>
                 </div>
 
 
-                <div class="carousel-item">
+                <div class="carousel-item pic-under-text">
                     <a href="/products"><img src="{{ url_for('static', filename='img/csgo.jpg') }}"
-                                             class="d-block w-100"
+                                             class="d-block w-100 border-radius-20px"
                                              alt="..."></a>
+                    <div class="text-on-pic border-radius-10px"><a class="neon-no-fixed" href="/products/2">Топ 2 товар</a></div>
                 </div>
 
-                <div class="carousel-item">
+                <div class="carousel-item pic-under-text">
                     <a href="/products"><img src="{{ url_for('static', filename='img/apex.jpg') }}"
-                                             class="d-block w-100"
+                                             class="d-block w-100 border-radius-20px"
                                              alt="..."></a>
+                    <div class="text-on-pic border-radius-10px"><a class="neon-no-fixed" href="/products/3">Топ 3 товар</a></div>
                 </div>
             </div>
+
+            <!-- кнопка назад -->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                     data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Предыдущий</span>
             </button>
+            <!-- кнопка вперед -->
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
                     data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -51,7 +57,12 @@
         </div>
     </div>
     <div id="top-products">
-        <h2 class="ul-item-heading">Товары</h2>
+        <div class="ul-item-heading border-radius-10px">
+            <h2>
+                Товары
+            </h2>
+        </div>
+
         <ul class="list-group mx-auto">
             {% for product in products %}
                 {% if products %}

@@ -2,11 +2,12 @@ from data.db_session import SqlAlchemyBase
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey, orm
 from data import db_session
+from data.users import User
 
 
 class Product(SqlAlchemyBase, SerializerMixin):  # класс товаров
     __tablename__ = 'products'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, nullable=False)
     name = Column(String(100), nullable=False)
     price = Column(Integer, nullable=False)

@@ -2,14 +2,44 @@
 
 {% block content %}
     <div class="card">
-        <img class="card-img-top product-img" src="{{ url_for('static', filename='uploads/photos/' + product.image) }}"
-             alt="{{ product.name }}">
-        <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <h6 class="card-subtitle mb-2 text-muted">{{ product.price }} руб.</h6>
-            <a href="buy" class="btn btn-primary">Купить</a>
-        </div>
-    </div>
+        {% if product.id %}
+            {% if product.image %}
+                <img class="card-img-top product-img"
+                     src="{{ url_for('static', filename='uploads/photos/' + product.image) }}"
+                     alt="{{ product.name }}">
+            {% else %}
+                Нет картинки
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <h6 class="card-subtitle mb-2 text-muted">{{ product.price }} руб.</h6>
+                <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <input type="hidden" name="name" value="{{ product.name }}">
+                    <input type="hidden" name="price" value="{{ product.price }}">
+                    {% if current_user.is_authenticated %}
+                        <button type="submit" class="button">Купить</button>
+                    {% else %}
+                        Войдите, чтобы купить!
+                    {% endif %}
+                </form>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        {% if category == 'product' %}
+                            <div class="alert alert-success" style="max-width: fit-content">
+                                {{ message }}<br>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endwith %}
 
+            </div>
+            </div>
+        {% else %}
+            <div class="no-product border-radius-10px">
+                Такого товара нет!
+            </div>
+        {% endif %}
 {% endblock %}

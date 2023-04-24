@@ -25,11 +25,14 @@
             <th>Цена</th>
             <th>Описание</th>
             <th>Удаление
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}{% for message in messages %}
-                        <div class="class=alert alert-danger" style="max-width: fit-content">{{ message }}</div><br>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        {% if category != 'product' %}
+                            <div class="alert alert-{{ category }}" style="max-width: fit-content">
+                                {{ message }}<br>
+                            </div>
+                        {% endif %}
                     {% endfor %}
-                    {% endif %}
                 {% endwith %}
             </th>
             <th>Фото</th>
@@ -78,9 +81,22 @@
             <textarea id="description" name="description" rows="4" required class="input-field"
                       style="vertical-align: top"></textarea><br>
 
-            <label for="image">Картинка продукта:</label>
-            <input type="file" id="image" name="image" class="input-field image-field"
-                   style="right: 20px; vertical-align: top"><br>
+            <label for="image" class="custom-file-upload button">
+                <input type="file" id="image" name="image" class="input-field image-field button">
+                <div id="file-name">Выберите файл картинки</div>
+
+                <script>
+                    const fileInput = document.getElementById('image');
+                    const fileName = document.getElementById('file-name');
+
+                    fileInput.addEventListener('change', (event) => {
+                        const file = event.target.files[0];
+                        fileName.textContent = file.name;
+                        fileName.style.backgroundColor = 'black';
+                        fileName.style.fontWeight = 'bold';
+                    });
+                </script>
+            </label><br>
 
             <input type="submit" value="Добавить" class="button">
         </form>
